@@ -1,0 +1,25 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/aiden3/ws/low_floor_parking_robot_ws/install/motion_controllers_temp/include/**",
+        "/home/aiden3/ws/low_floor_parking_robot_ws/install/motion_controllers/include/**",
+        "/home/aiden3/ws/low_floor_parking_robot_ws/install/pkr_msgs/include/**",
+        "/home/aiden3/ws/low_floor_parking_robot_ws/install/clobot_platform_libs/include/**",
+        "/opt/ros/foxy/include/**",
+        "/home/aiden3/ws/ros2_test_ws/src/custom_plugin_test/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
