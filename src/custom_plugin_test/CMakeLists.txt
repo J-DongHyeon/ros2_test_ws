@@ -38,6 +38,8 @@ ament_target_dependencies(custom_plugin_test
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(custom_plugin_test PRIVATE "CUSTOM_PLUGIN_TEST_BUILDING_LIBRARY")
 
+pluginlib_export_plugin_description_file(base_class_test plugins.xml)
+
 install(
   DIRECTORY include/
   DESTINATION include
