@@ -14,7 +14,7 @@ build/
 
 log/
 install/
-.vscode/
+vscode/
 
 # ignore doc/notes.txt, but not doc/server/arch.txt
 # doc/*.txt
