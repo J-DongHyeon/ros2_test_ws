@@ -55,6 +55,7 @@ private:
         tf_map_to_base_link.transform.translation.y = 1.0;
         tf_map_to_base_link.transform.translation.z = 0.0;
 
+        // 45 deg
         tf_map_to_base_link.transform.rotation.x = 0.0;
         tf_map_to_base_link.transform.rotation.y = 0.0;
         tf_map_to_base_link.transform.rotation.z = 0.3826834;

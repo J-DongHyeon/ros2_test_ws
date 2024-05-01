@@ -15,6 +15,7 @@ build/
 log/
 install/
 .vscode/
+src/clobot_platform_libs/
 
 # ignore doc/notes.txt, but not doc/server/arch.txt
 # doc/*.txt
