@@ -14,13 +14,16 @@
 using namespace std::chrono_literals;
 
 
+/*
+1 sec 주기로 'tf_signal' Topic 및 frame 간 tf 관계 발행
+*/
 class TFPubNode : public rclcpp::Node
 {
 private:
     rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr pub_tf_signal_;
 
-    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_;
-    std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+    std::shared_ptr<tf2_ros::StaticTransformBroadcaster> tf_static_broadcaster_; // frame 간 static tf 발행
+    std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_; // frame 간 동적 tf 발행
 
     rclcpp::TimerBase::SharedPtr tf_pub_timer_;
 
@@ -46,7 +49,13 @@ private:
 
         std_msgs::msg::UInt8 tf_signal_msg;
 
-
+/*
+step 1.
+'TransformStamped' 타입의 msg를 생성하고,
+해당 msg에 두 개의 frame간 평행이동 -> 회전변환 관계를 정의한다.
+'*.header.frame_id' 에 들어가는 frame이 부모 frame이 되고,
+'*.child_frame_id' 에 들어가는 frame이 자식 frame이 된다.
+*/
         tf_map_to_base_link.header.stamp = this->get_clock()->now();
         tf_map_to_base_link.header.frame_id = "map";
         tf_map_to_base_link.child_frame_id = "base_link";
@@ -76,6 +85,12 @@ private:
         tf_base_link_to_POI_frame.transform.rotation.w = 1.0;
 
 
+/*
+step 2.
+'StaticTransformBroadcaster' 또는 'TransformBroadcaster' 객체를 이용하여 위에서 정의한 'TransformStamped' msg를 발행한다.
+이때, 두 frame간 tf가 고정적이라면 'StaticTransformBroadcaster' 객체를 통해 발행하고,
+두 frame간 tf가 동적이라면 'TransformBroadcaster' 객체를 통해 발행하면 된다.
+*/
         tf_static_broadcaster_->sendTransform(tf_map_to_base_link);
         tf_broadcaster_->sendTransform(tf_base_link_to_POI_frame);
 
