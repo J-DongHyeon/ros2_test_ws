@@ -18,20 +18,53 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(clobot_platform_libs REQUIRED)
 
-# add_executable(plugin_test_node
-#     src/plugin_test_node.cpp
-# )
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
-# target_include_directories(plugin_test_node PUBLIC
-#     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#     $<INSTALL_INTERFACE:include>)
 
-# ament_target_dependencies(plugin_test_node
-#     rclcpp
-#     pluginlib
-#     base_class_test
-# )
+# tf_pub_node
+add_executable(tf_pub_node
+    src/tf_pub_node.cpp
+)
+
+target_include_directories(tf_pub_node PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+
+ament_target_dependencies(tf_pub_node
+    rclcpp
+
+    std_msgs
+    geometry_msgs
+    tf2_ros
+)
+
+
+# tf_sub_node
+add_executable(tf_sub_node
+    src/tf_sub_node.cpp
+)
+
+target_include_directories(tf_sub_node PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+
+ament_target_dependencies(tf_sub_node
+    rclcpp
+    clobot_platform_libs
+
+    std_msgs
+    geometry_msgs
+    tf2
+    tf2_ros
+    tf2_geometry_msgs
+)
+
 
 install(
     DIRECTORY include/
@@ -39,7 +72,8 @@ install(
 )
 
 install(TARGETS
-    # plugin_test_node
+    tf_pub_node
+    tf_sub_node
 	DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

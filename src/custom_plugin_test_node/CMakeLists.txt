@@ -35,10 +35,10 @@ ament_target_dependencies(plugin_test_node
   base_class_test
 )
 
-install(
-  DIRECTORY include/
-  DESTINATION include
-)
+# install(
+#   DIRECTORY include/
+#   DESTINATION include
+# )
 
 install(TARGETS
   plugin_test_node
