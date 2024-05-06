@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(custom_plugin_test)
+project(custom_plugin_test_pkg)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -17,40 +17,32 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_ros REQUIRED)
-find_package(base_class_test REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(base_class_plugin REQUIRED)
 find_package(pluginlib REQUIRED)
 
-add_library(custom_plugin_test
-  src/custom_plugin_test.cpp
+add_executable(custom_plugin_test_node
+  src/custom_plugin_test_node.cpp
 )
 
-target_include_directories(custom_plugin_test PUBLIC
+target_include_directories(custom_plugin_test_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
-ament_target_dependencies(custom_plugin_test
-  base_class_test
+ament_target_dependencies(custom_plugin_test_node
+	rclcpp
   pluginlib
+  base_class_plugin
 )
 
-# Causes the visibility macros to use dllexport rather than dllimport,
-# which is appropriate when building the dll but not consuming it.
-target_compile_definitions(custom_plugin_test PRIVATE "CUSTOM_PLUGIN_TEST_BUILDING_LIBRARY")
+# install(
+#   DIRECTORY include/
+#   DESTINATION include
+# )
 
-pluginlib_export_plugin_description_file(base_class_test plugins.xml)
-
-install(
-  DIRECTORY include/
-  DESTINATION include
-)
-install(
-  TARGETS custom_plugin_test
-  EXPORT export_${PROJECT_NAME}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
+install(TARGETS
+custom_plugin_test_node
+	DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -65,12 +57,6 @@ endif()
 
 ament_export_include_directories(
   include
-)
-ament_export_libraries(
-  custom_plugin_test
-)
-ament_export_targets(
-  export_${PROJECT_NAME}
 )
 
 ament_package()

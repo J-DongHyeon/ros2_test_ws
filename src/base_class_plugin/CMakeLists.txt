@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(custom_plugin_test_node)
+project(base_class_plugin)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -18,31 +18,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(base_class_test REQUIRED)
 find_package(pluginlib REQUIRED)
-
-add_executable(plugin_test_node
-  src/plugin_test_node.cpp
-)
-
-target_include_directories(plugin_test_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
-
-ament_target_dependencies(plugin_test_node
-	rclcpp
-  pluginlib
-  base_class_test
-)
-
-# install(
-#   DIRECTORY include/
-#   DESTINATION include
-# )
-
-install(TARGETS
-  plugin_test_node
-	DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -54,6 +30,11 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
 
 ament_export_include_directories(
   include

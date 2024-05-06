@@ -1,5 +1,0 @@
-<library path="custom_plugin_test">
-  <class type="custom_plugin_test::CustomPluginTest" base_class_type="base_class_test::BaseClassTest">
-    <description> Custom Plugin Test </description>
-  </class>
-</library>

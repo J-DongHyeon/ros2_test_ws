@@ -1,0 +1,5 @@
+<library path="custom_plugin_lib">
+  <class type="custom_plugin::CustomPlugin" base_class_type="base_class_plugin::BaseClassPlugin">
+    <description> Custom Plugin Test </description>
+  </class>
+</library>
